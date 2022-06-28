@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import './pokemon-card.css';
 import formatDate from './../helpers/format-date';
 import formatType from '../helpers/format-type';
-
+import PokemonForm from './pokemon-form';
+import { Link } from 'react-router-dom';
 
 const PokemonCard = ({pokemon, borderColor = 'blue'}) =>{
   const [color,setColor] = useState();
@@ -16,7 +17,8 @@ const PokemonCard = ({pokemon, borderColor = 'blue'}) =>{
 
 
     return (
-        <div className="col s6 m4"  onMouseEnter={showBorder} onMouseLeave={hideBorder}>
+        <div className="col s6 m4"  onMouseEnter={showBorder} onMouseLeave={hideBorder} >
+           <Link to={`/pokemons/${pokemon.id}`}>
           <div className="card horizontal" style={{borderColor :color}}>
             <div className="card-image"> 
               <img src={pokemon.picture} alt={pokemon.name}/>
@@ -32,6 +34,7 @@ const PokemonCard = ({pokemon, borderColor = 'blue'}) =>{
               </div>
             </div>
           </div> 
+          </Link>
         </div>
       );
 }

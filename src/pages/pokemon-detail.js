@@ -5,6 +5,7 @@ import Pokemon from '../models/pokemon';
 import POKEMONS from '../models/mock-pokemon';
 import formatDate from '../helpers/format-date';
 import formatType from '../helpers/format-type';
+import PokemonService from '../services/pokemon-service';
 
 
 
@@ -13,16 +14,13 @@ import formatType from '../helpers/format-type';
   
 const PokemonsDetail= () => {
     const {id} = useParams()  //<-- je ne sais pas typer id, je découvre ts
-    console.log(useParams(),'cc')
-    console.log('je suis le ',id)
+
     const [pokemon, setPokemon] = useState();
     useEffect(() => {
-      POKEMONS.forEach((pokemon) => {
-        
-         if (id === pokemon.id.toString()) {
-            setPokemon(pokemon) ;console.log(pokemon)}},[id]);
+      PokemonService.getPokemon(id).then(pokemon => setPokemon(pokemon))
+    },[id]);
 
-    });
+    
     return (
           <div>
                 { pokemon ? (
@@ -32,6 +30,9 @@ const PokemonsDetail= () => {
                       <div className="card hoverable"> 
                         <div className="card-image">
                           <img src={pokemon.picture} alt={pokemon.name} style={{width: '250px', margin: '0 auto'}}/>
+                          <Link to={`/pokemons/edit/${pokemon.id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
+                            <i className='material-icons'>edit</i>
+                          </Link>
                         </div>
                         <div className="card-stacked">
                           <div className="card-content">
